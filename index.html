@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TriviSpar · Coming soon</title>
+<meta name="description" content="TriviSpar is the trivia game you write for each other. Coming soon. Get on the list.">
+<meta name="theme-color" content="#0B1636">
+<link rel="canonical" href="https://trivispar.com/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://trivispar.com/">
+<meta property="og:title" content="TriviSpar · Trivia night with your favorite people">
+<meta property="og:description" content="The trivia game you write for each other. Coming soon.">
+<meta property="og:image" content="https://trivispar.com/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="img/icon-64.png" type="image/png">
+<link rel="apple-touch-icon" href="img/icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0B1636;
+    --navy-2: #0E1F4D;
+    --ink: #12131A;
+    --cream: #FBF7EE;
+    --blue: #3B86FF;
+    --blue-deep: #2563EB;
+    --pop: #FF4FA3;
+    --muted: #A9B3D6;
+    --display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
+    --body: "Rubik", system-ui, -apple-system, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; overflow-x: hidden; overflow-x: clip; }
+  body {
+    background: var(--navy);
+    color: var(--cream);
+    font: 400 17px/1.5 var(--body);
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  /* halftone dots, like the app */
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none;
+    background-image: radial-gradient(rgba(59,134,255,.22) 1.4px, transparent 1.6px);
+    background-size: 10px 10px;
+    -webkit-mask-image: linear-gradient(115deg, transparent 35%, #000 85%);
+            mask-image: linear-gradient(115deg, transparent 35%, #000 85%);
+  }
+  .wrap {
+    position: relative; max-width: 1120px; margin: 0 auto;
+    padding: max(20px, env(safe-area-inset-top)) 20px 40px;
+  }
+  header { display: flex; align-items: center; justify-content: space-between; }
+  .mark {
+    font: 900 30px/1 var(--display); letter-spacing: .07em; text-transform: uppercase;
+    background: linear-gradient(180deg, #fff 54%, var(--blue) 54%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    text-decoration: none;
+  }
+  .star { color: var(--pop); font-size: 22px; line-height: 1; }
+
+  .hero {
+    display: grid; gap: 28px; align-items: center;
+    grid-template-columns: 1fr; margin-top: 36px;
+  }
+  .tab {
+    display: inline-block; position: relative;
+    font: 800 15px/1 var(--display); letter-spacing: .14em; text-transform: uppercase;
+    color: var(--ink); background: var(--cream);
+    padding: 8px 26px 7px 12px;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%);
+  }
+  h1 {
+    margin: 16px 0 10px;
+    font: 900 clamp(64px, 17vw, 132px)/.86 var(--display);
+    text-transform: uppercase; letter-spacing: .005em;
+  }
+  h1 em { font-style: normal; color: var(--blue); display: block; }
+  .lede { margin: 0 0 22px; font-size: 19px; color: #DCE3F7; max-width: 30ch; }
+
+  form { display: flex; flex-wrap: wrap; gap: 12px; max-width: 480px; }
+  .field { flex: 1 1 230px; position: relative; }
+  input[type=email] {
+    width: 100%; height: 58px; border: 0; border-radius: 16px;
+    padding: 0 18px; font: 500 18px var(--body); color: var(--ink);
+    background: #fff; box-shadow: 5px 5px 0 #000; outline: none;
+  }
+  input[type=email]:focus { box-shadow: 5px 5px 0 #000, 0 0 0 3px var(--blue); }
+  button {
+    flex: 0 0 auto; height: 58px; padding: 0 26px; border: 0; border-radius: 999px;
+    font: 900 20px/1 var(--display); letter-spacing: .08em; text-transform: uppercase;
+    color: #fff; background: var(--blue-deep); cursor: pointer;
+    box-shadow: 5px 5px 0 #000;
+  }
+  button:hover { background: var(--blue); }
+  button:active { transform: translate(2px, 2px); box-shadow: 3px 3px 0 #000; }
+  .fine { margin: 14px 0 0; font-size: 14px; color: var(--muted); }
+  .thanks {
+    display: none; max-width: 480px; padding: 18px 20px; border-radius: 18px;
+    background: #fff; color: var(--ink); box-shadow: 5px 5px 0 #000;
+  }
+  .thanks b { font: 900 24px/1.1 var(--display); text-transform: uppercase; letter-spacing: .04em; display: block; margin-bottom: 4px; }
+  body.joined form, body.joined .fine { display: none; }
+  body.joined .thanks { display: block; }
+
+  /* phones */
+  .stage { position: relative; height: 470px; margin: 8px 0 0; }
+  .burst {
+    position: absolute; left: 50%; top: 50%; width: 520px; max-width: 120%;
+    transform: translate(-50%, -50%); opacity: .9;
+  }
+  .phone {
+    position: absolute; top: 50%; left: 50%;
+    width: 196px; aspect-ratio: 600 / 1298;
+    border-radius: 30px; border: 7px solid #05070F; background: #05070F;
+    box-shadow: 8px 10px 0 rgba(0,0,0,.55);
+    overflow: hidden;
+  }
+  .phone img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; border-radius: 23px; }
+  .p1 { transform: translate(-128%, -46%) rotate(-9deg); }
+  .p3 { transform: translate(28%, -46%) rotate(9deg); }
+  .p2 { transform: translate(-50%, -54%); z-index: 2; width: 214px; }
+
+  footer {
+    margin-top: 34px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.12);
+    display: flex; flex-wrap: wrap; gap: 8px 18px; justify-content: space-between;
+    font-size: 14px; color: var(--muted);
+  }
+  footer a { color: var(--cream); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,.3); }
+  .flinks { display: flex; flex-wrap: wrap; gap: 6px 16px; }
+
+  @media (max-width: 420px) {
+    .stage { height: 400px; }
+    .phone { width: 160px; border-radius: 26px; border-width: 6px; }
+    .p2 { width: 176px; }
+    .phone img { border-radius: 20px; }
+  }
+  @media (min-width: 900px) {
+    .wrap { padding-top: 32px; }
+    .hero { grid-template-columns: 1.05fr 1fr; margin-top: 56px; gap: 40px; }
+    .stage { height: 600px; margin: 0; }
+    .phone { width: 230px; border-radius: 36px; }
+    .p2 { width: 252px; }
+    .phone img { border-radius: 28px; }
+    .p1 { transform: translate(-112%, -46%) rotate(-9deg); }
+    .p3 { transform: translate(14%, -46%) rotate(9deg); }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .phone { animation: rise .7s cubic-bezier(.2,1.2,.4,1) both; }
+    .p1 { animation-delay: .08s; } .p3 { animation-delay: .16s; }
+    @keyframes rise { from { opacity: 0; margin-top: 40px; } to { opacity: 1; margin-top: 0; } }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="mark" href="/" aria-label="TriviSpar">TriviSpar</a>
+    <span class="star" aria-hidden="true">★</span>
+  </header>
+
+  <main class="hero">
+    <section>
+      <span class="tab">Coming soon</span>
+      <h1>Trivia night with your <em>favorite people</em></h1>
+      <p class="lede">The trivia game you write for each other.</p>
+
+      <!--
+        WAITLIST
+        Paste your Kit form ID between the quotes in KIT_FORM_ID below (the
+        number from your Kit form's embed code, e.g. "1234567").
+        Until it's filled in, sign-ups open an email to hello@trivispar.com
+        instead, so the page works from day one.
+      -->
+      <form id="waitlist" method="post" novalidate>
+        <div class="field">
+          <label for="email" class="sr" style="position:absolute;left:-9999px">Email address</label>
+          <input id="email" name="email_address" type="email" inputmode="email" autocomplete="email" placeholder="you@email.com" required>
+        </div>
+        <button type="submit">Get in first</button>
+      </form>
+      <p class="fine">One email when it launches. No spam, unsubscribe anytime.</p>
+      <div class="thanks" role="status"><b>You're on the list</b>We'll email you the day TriviSpar opens. Check your inbox to confirm.</div>
+    </section>
+
+    <section class="stage" aria-label="A look at the app">
+      <svg class="burst" viewBox="0 0 520 260" aria-hidden="true">
+        <defs><pattern id="d" width="8" height="8" patternUnits="userSpaceOnUse"><circle cx="4" cy="4" r="1.7" fill="#5B8CFF" opacity=".55"/></pattern></defs>
+        <polygon fill="#1C3478" stroke="#000" stroke-width="3" points="257,20 283,57 326,22 322,57 379,32 356,72 444,51 388,87 487,81 414,108 480,119 417,132 482,142 424,152 478,175 393,173 427,201 366,185 383,226 331,203 325,237 280,211 265,246 235,213 192,236 191,197 130,230 157,191 85,210 120,172 49,173 101,151 28,146 86,128 22,114 98,110 34,78 130,87 77,54 150,72 134,40 184,56 189,24 234,47"/>
+        <polygon fill="url(#d)" points="257,20 283,57 326,22 322,57 379,32 356,72 444,51 388,87 487,81 414,108 480,119 417,132 482,142 424,152 478,175 393,173 427,201 366,185 383,226 331,203 325,237 280,211 265,246 235,213 192,236 191,197 130,230 157,191 85,210 120,172 49,173 101,151 28,146 86,128 22,114 98,110 34,78 130,87 77,54 150,72 134,40 184,56 189,24 234,47"/>
+      </svg>
+      <div class="phone p1"><img src="img/home.webp" alt="TriviSpar home screen with games waiting on you" loading="lazy"></div>
+      <div class="phone p2"><img src="img/verdict.webp" alt="A verdict screen: CORRECT, with the referee's ruling"></div>
+      <div class="phone p3"><img src="img/threw.webp" alt="Marcus threw you one" loading="lazy"></div>
+    </section>
+  </main>
+
+  <footer>
+    <span>© 2026 TriviSpar</span>
+    <span class="flinks"><a href="/support/">Support</a> <a href="/privacy/">Privacy</a> <a href="/terms/">Terms</a> <a href="mailto:hello@trivispar.com">hello@trivispar.com</a></span>
+  </footer>
+</div>
+
+<script>
+  var KIT_FORM_ID = "";   // ← paste your Kit form ID here, e.g. "1234567"
+
+  (function () {
+    var form = document.getElementById("waitlist");
+    var email = document.getElementById("email");
+    if (/[?&]joined=1/.test(location.search)) document.body.classList.add("joined");
+
+    if (KIT_FORM_ID) form.action = "https://app.convertkit.com/forms/" + KIT_FORM_ID + "/subscriptions";
+
+    form.addEventListener("submit", function (e) {
+      var v = (email.value || "").trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
+        e.preventDefault();
+        email.focus();
+        email.setCustomValidity("Enter a valid email address");
+        email.reportValidity();
+        return;
+      }
+      email.setCustomValidity("");
+      if (!KIT_FORM_ID) {
+        e.preventDefault();
+        location.href = "mailto:hello@trivispar.com?subject=" +
+          encodeURIComponent("Add me to the TriviSpar list") +
+          "&body=" + encodeURIComponent("Please add " + v + " to the launch list.");
+      }
+      // with a Kit form ID, the form posts to Kit, and Kit sends people
+      // back to https://trivispar.com/?joined=1 (set in the Kit form settings)
+    });
+    email.addEventListener("input", function () { email.setCustomValidity(""); });
+  })();
+</script>
+</body>
+</html>
