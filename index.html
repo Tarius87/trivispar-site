@@ -1,243 +1,892 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>TriviSpar · Coming soon</title>
-<meta name="description" content="TriviSpar is the trivia game you write for each other. Coming soon. Get on the list.">
-<meta name="theme-color" content="#0B1636">
-<link rel="canonical" href="https://trivispar.com/">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://trivispar.com/">
-<meta property="og:title" content="TriviSpar · Trivia night with your favorite people">
-<meta property="og:description" content="The trivia game you write for each other. Coming soon.">
-<meta property="og:image" content="https://trivispar.com/img/og.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="img/icon-64.png" type="image/png">
-<link rel="apple-touch-icon" href="img/icon-180.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --navy: #0B1636;
-    --navy-2: #0E1F4D;
-    --ink: #12131A;
-    --cream: #FBF7EE;
-    --blue: #3B86FF;
-    --blue-deep: #2563EB;
-    --pop: #FF4FA3;
-    --muted: #A9B3D6;
-    --display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
-    --body: "Rubik", system-ui, -apple-system, sans-serif;
-  }
-  * { box-sizing: border-box; }
-  html, body { margin: 0; overflow-x: hidden; overflow-x: clip; }
-  body {
-    background: var(--navy);
-    color: var(--cream);
-    font: 400 17px/1.5 var(--body);
-    min-height: 100vh;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-  }
-  /* halftone dots, like the app */
-  body::before {
-    content: ""; position: fixed; inset: 0; pointer-events: none;
-    background-image: radial-gradient(rgba(59,134,255,.22) 1.4px, transparent 1.6px);
-    background-size: 10px 10px;
-    -webkit-mask-image: linear-gradient(115deg, transparent 35%, #000 85%);
-            mask-image: linear-gradient(115deg, transparent 35%, #000 85%);
-  }
-  .wrap {
-    position: relative; max-width: 1120px; margin: 0 auto;
-    padding: max(20px, env(safe-area-inset-top)) 20px 40px;
-  }
-  header { display: flex; align-items: center; justify-content: space-between; }
-  .mark {
-    font: 900 30px/1 var(--display); letter-spacing: .07em; text-transform: uppercase;
-    background: linear-gradient(180deg, #fff 54%, var(--blue) 54%);
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-    text-decoration: none;
-  }
-  .star { color: var(--pop); font-size: 22px; line-height: 1; }
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>TriviSpar · Coming soon</title>
+    <meta name="description" content="TriviSpar is the trivia game you write for each other. Coming soon. Get on the list." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://trivispar.com/" />
+    <meta property="og:title" content="TriviSpar · Trivia night with your favorite people" />
+    <meta property="og:description" content="The trivia game you write for each other. Coming soon." />
+    <meta property="og:image" content="https://trivispar.com/img/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="img/icon-64.png" type="image/png" />
+    <link rel="apple-touch-icon" href="img/icon-180.png" />
+    <link rel="stylesheet" href="j/hark.css" />
+    <style>
+      @font-face { font-family: "Bebas Neue"; src: url("j/bebas-neue-400-normal.ttf") format("truetype"); font-display: swap; }
+      @font-face { font-family: "Archivo Black"; src: url("j/archivo-black-400-normal.ttf") format("truetype"); font-display: swap; }
+      :root {
+        --navy: #0B1636; --blue: #3B86FF; --yellow: #F5C518; --cream: #FBF7EE; --grey: #A9B3D6;
+        --head: "Bebas Neue", Impact, sans-serif; --score: "Archivo Black", system-ui, sans-serif;
+        --body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        --gut: clamp(18px, 4vw, 48px); --max: 1120px; --hh: 60px;
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+      body { margin: 0; background: var(--navy); color: var(--cream); font-family: var(--body); font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+      img { max-width: 100%; display: block; }
+      a { color: inherit; }
+      h1, h2, h3, p { margin: 0; }
+      :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 8px; }
+      .x-wrap { max-width: var(--max); margin: 0 auto; padding-inline: var(--gut); }
+      .x-block { padding-block: clamp(56px, 10vw, 112px); }
+      .x-kicker { font-family: var(--score); font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: var(--blue); }
+      .x-lead { color: var(--grey); font-size: clamp(16px, 1.6vw, 19px); max-width: 50ch; }
+      .x-fine { color: var(--grey); font-size: 13px; }
+      .x-h2 { font-family: var(--head); font-size: clamp(42px, 9vw, 84px); line-height: .92; text-transform: uppercase; }
+      .x-h2 .hi { color: var(--yellow); } .x-h2 .hb { color: var(--blue); }
 
-  .hero {
-    display: grid; gap: 28px; align-items: center;
-    grid-template-columns: 1fr; margin-top: 36px;
-  }
-  .tab {
-    display: inline-block; position: relative;
-    font: 800 15px/1 var(--display); letter-spacing: .14em; text-transform: uppercase;
-    color: var(--ink); background: var(--cream);
-    padding: 8px 26px 7px 12px;
-    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%);
-  }
-  h1 {
-    margin: 16px 0 10px;
-    font: 900 clamp(64px, 17vw, 132px)/.86 var(--display);
-    text-transform: uppercase; letter-spacing: .005em;
-  }
-  h1 em { font-style: normal; color: var(--blue); display: block; }
-  .lede { margin: 0 0 22px; font-size: 19px; color: #DCE3F7; max-width: 30ch; }
+      /* header */
+      .x-head { position: fixed; top: 0; left: 0; right: 0; z-index: 60; background: var(--navy); border-bottom: 1px solid rgba(169,179,214,.18); }
+      .x-head__in { display: flex; align-items: center; gap: 12px; min-height: var(--hh); }
+      .x-brand { display: flex; align-items: center; min-height: 44px; text-decoration: none; }
+      .x-brand img { height: 28px; width: auto; aspect-ratio: 4000 / 1036; }
+      @media (min-width: 821px) { .x-brand img { height: 34px; } }
+      .x-nav { margin-left: auto; display: flex; align-items: center; gap: 2px; }
+      .x-navlink { display: inline-flex; align-items: center; min-height: 44px; padding: 0 10px; font-size: 14px; text-decoration: none; color: var(--grey); }
+      .x-navlink:hover, .x-soc:hover { color: var(--cream); }
+      .x-soc { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; color: var(--grey); }
+      .x-soc svg { width: 20px; height: 20px; fill: currentColor; }
+      @media (max-width: 600px) { .x-navlink { display: none; } }
 
-  form { display: flex; flex-wrap: wrap; gap: 12px; max-width: 480px; }
-  .field { flex: 1 1 230px; position: relative; }
-  input[type=email] {
-    width: 100%; height: 58px; border: 0; border-radius: 16px;
-    padding: 0 18px; font: 500 18px var(--body); color: var(--ink);
-    background: #fff; box-shadow: 5px 5px 0 #000; outline: none;
-  }
-  input[type=email]:focus { box-shadow: 5px 5px 0 #000, 0 0 0 3px var(--blue); }
-  button {
-    flex: 0 0 auto; height: 58px; padding: 0 26px; border: 0; border-radius: 999px;
-    font: 900 20px/1 var(--display); letter-spacing: .08em; text-transform: uppercase;
-    color: #fff; background: var(--blue-deep); cursor: pointer;
-    box-shadow: 5px 5px 0 #000;
-  }
-  button:hover { background: var(--blue); }
-  button:active { transform: translate(2px, 2px); box-shadow: 3px 3px 0 #000; }
-  .fine { margin: 14px 0 0; font-size: 14px; color: var(--muted); }
-  .thanks {
-    display: none; max-width: 480px; padding: 18px 20px; border-radius: 18px;
-    background: #fff; color: var(--ink); box-shadow: 5px 5px 0 #000;
-  }
-  .thanks b { font: 900 24px/1.1 var(--display); text-transform: uppercase; letter-spacing: .04em; display: block; margin-bottom: 4px; }
-  body.joined form, body.joined .fine { display: none; }
-  body.joined .thanks { display: block; }
+      /* buttons */
+      .x-stores { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+      .x-store { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 20px; border-radius: 999px; background: var(--cream); color: var(--navy); font-family: var(--score); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; text-decoration: none; border: 2px solid var(--navy); box-shadow: 3px 4px 0 rgba(0,0,0,.35); }
+      .x-store--alt { background: #1F5FD6; color: #fff; }
+      .x-store svg { width: 18px; height: 18px; fill: currentColor; }
 
-  /* phones */
-  .stage { position: relative; height: 470px; margin: 8px 0 0; }
-  .burst {
-    position: absolute; left: 50%; top: 50%; width: 520px; max-width: 120%;
-    transform: translate(-50%, -50%); opacity: .9;
-  }
-  .phone {
-    position: absolute; top: 50%; left: 50%;
-    width: 196px; aspect-ratio: 600 / 1298;
-    border-radius: 30px; border: 7px solid #05070F; background: #05070F;
-    box-shadow: 8px 10px 0 rgba(0,0,0,.55);
-    overflow: hidden;
-  }
-  .phone img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; border-radius: 23px; }
-  .p1 { transform: translate(-128%, -46%) rotate(-9deg); }
-  .p3 { transform: translate(28%, -46%) rotate(9deg); }
-  .p2 { transform: translate(-50%, -54%); z-index: 2; width: 214px; }
+      /* ---- the ride ---- */
+      .x-ride { position: relative; height: 600vh; }
+      .x-stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; background: transparent; --c1: #1D3F8F; --c2: #0B1636; --dot: rgba(59,134,255,.5); }
+      /* the ride's backdrop; its bottom dissolves into the page's fixed backdrop as the ride ends, so there is no seam */
+      .x-fade { position: absolute; inset: 0; pointer-events: none; }
+      .x-field { position: absolute; inset: 0; background: radial-gradient(120% 90% at 50% 45%, var(--c1), var(--c2) 78%); }
+      .x-dots, .x-dots2 { position: absolute; inset: 0; pointer-events: none; }
+      .x-dots { background-image: radial-gradient(var(--dot) 1.5px, transparent 1.9px); background-size: 13px 13px;
+        -webkit-mask-image: radial-gradient(75% 70% at 50% 50%, transparent 45%, #000 100%); mask-image: radial-gradient(75% 70% at 50% 50%, transparent 45%, #000 100%); }
+      .x-dots2 { background-image: radial-gradient(var(--dot) 3px, transparent 3.4px); background-size: 22px 22px;
+        -webkit-mask-image: radial-gradient(circle at 0 0, #000, transparent 42vmin), radial-gradient(circle at 100% 100%, #000, transparent 46vmin);
+        mask-image: radial-gradient(circle at 0 0, #000, transparent 42vmin), radial-gradient(circle at 100% 100%, #000, transparent 46vmin); }
 
-  footer {
-    margin-top: 34px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.12);
-    display: flex; flex-wrap: wrap; gap: 8px 18px; justify-content: space-between;
-    font-size: 14px; color: var(--muted);
-  }
-  footer a { color: var(--cream); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,.3); }
-  .flinks { display: flex; flex-wrap: wrap; gap: 6px 16px; }
+      .x-cam { position: absolute; left: 50%; top: 50%; width: 0; height: 0; }
+      .x-phone { position: absolute; left: 0; top: 0; height: min(74svh, 640px); aspect-ratio: 600 / 1298; transform-origin: 0 0; will-change: transform; }
+      .x-phone__in { position: absolute; inset: 0; border-radius: 13% / 6%; background: #05070F; padding: 2.4%; box-shadow: 0 30px 80px rgba(0,0,0,.45); }
+      .x-screen { position: relative; width: 100%; height: 100%; border-radius: 11% / 5%; overflow: hidden; background: var(--navy); }
+      .x-screen img { position: absolute; inset: 0; width: 100%; height: 100%; }
+      .x-screen img + img { opacity: 0; }
+      .x-engarde { position: absolute; left: 5%; top: 1.7%; width: 40%; aspect-ratio: 320 / 95; background: url("j/engarde-sprite.webp") 0 0 / 500% 1300% no-repeat; pointer-events: none; }
+      .x-target { position: absolute; left: 3%; right: 3%; top: 49.5%; height: 17.5%; border-radius: 12px; box-shadow: 0 0 0 3px rgba(245,197,24,0); }
 
-  @media (max-width: 420px) {
-    .stage { height: 400px; }
-    .phone { width: 160px; border-radius: 26px; border-width: 6px; }
-    .p2 { width: 176px; }
-    .phone img { border-radius: 20px; }
-  }
-  @media (min-width: 900px) {
-    .wrap { padding-top: 32px; }
-    .hero { grid-template-columns: 1.05fr 1fr; margin-top: 56px; gap: 40px; }
-    .stage { height: 600px; margin: 0; }
-    .phone { width: 230px; border-radius: 36px; }
-    .p2 { width: 252px; }
-    .phone img { border-radius: 28px; }
-    .p1 { transform: translate(-112%, -46%) rotate(-9deg); }
-    .p3 { transform: translate(14%, -46%) rotate(9deg); }
-  }
-  @media (prefers-reduced-motion: no-preference) {
-    .phone { animation: rise .7s cubic-bezier(.2,1.2,.4,1) both; }
-    .p1 { animation-delay: .08s; } .p3 { animation-delay: .16s; }
-    @keyframes rise { from { opacity: 0; margin-top: 40px; } to { opacity: 1; margin-top: 0; } }
-  }
-</style>
-</head>
-<body>
-<div class="wrap">
-  <header>
-    <a class="mark" href="/" aria-label="TriviSpar">TriviSpar</a>
-    <span class="star" aria-hidden="true">★</span>
-  </header>
+      .x-layer { position: absolute; inset: 0; pointer-events: none; opacity: 0; }
+      .x-layer a { pointer-events: auto; }
+      .x-homecopy { position: absolute; left: var(--gut); right: var(--gut); top: calc(var(--hh) + 4svh); text-align: center; }
+      .x-homecopy .x-stores { justify-content: center; }
+      .x-h1 { font-family: var(--head); font-size: clamp(38px, 11.5vw, 80px); line-height: .88; text-transform: uppercase; text-shadow: 0 6px 30px rgba(0,0,0,.35); overflow-wrap: break-word; }
+      #l-home { z-index: 2; }
+      @media (min-width: 820px) {
+        .x-h1 { font-size: min(6.2vw, 80px); }
+        .x-homecopy { top: 50%; transform: translateY(-50%); right: auto; width: 46%; max-width: 560px; left: max(var(--gut), calc(50% - 540px)); text-align: left; }
+        .x-homecopy .x-stores { justify-content: flex-start; }
+      }
+      .x-cap { position: absolute; left: var(--gut); right: var(--gut); bottom: calc(env(safe-area-inset-bottom) + 22px); text-align: center; font-family: var(--score); font-size: clamp(13px, 2.4vw, 16px); letter-spacing: .08em; text-transform: uppercase; color: var(--navy); }
+      .x-cap span { display: inline-block; background: var(--cream); border: 2px solid var(--navy); border-radius: 10px; padding: 8px 14px; box-shadow: 3px 4px 0 var(--navy); max-width: 34ch; }
 
-  <main class="hero">
-    <section>
-      <span class="tab">Coming soon</span>
-      <h1>Trivia night with your <em>favorite people</em></h1>
-      <p class="lede">The trivia game you write for each other.</p>
+      .x-c { position: absolute; left: 50%; width: min(92vw, 960px); text-align: center; color: var(--navy); }
+      .x-score { top: calc(var(--hh) + 12px); transform: translateX(-50%); width: auto; font-family: var(--score); font-size: 13px; letter-spacing: .12em; background: var(--navy); color: var(--cream); padding: 7px 14px; border-radius: 999px; white-space: nowrap; }
+      .x-q { top: 22%; transform-origin: 50% 0; font-family: var(--head); text-transform: uppercase; line-height: .92; font-size: min(10.5vw, 10.5svh, 92px); }
+      .x-q span { display: inline-block; opacity: 0; }
+      .x-ring { --rs: min(28vmin, 210px); top: 67%; width: var(--rs); height: var(--rs); margin: calc(var(--rs) / -2) 0 0 calc(var(--rs) / -2); }
+      .x-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+      .x-ring b { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--score); font-size: calc(var(--rs) * .44); font-weight: 400; line-height: 1; }
+      /* asking player's colour closing in from the top, halftone on its moving bottom edge */
+      .x-rise { position: absolute; inset: 0; background: var(--pc); transform: translateY(-110%); will-change: transform; }
+      .x-rise::before, .x-rise::after { content: ""; position: absolute; left: 0; right: 0; top: calc(100% - 1px); pointer-events: none; }
+      .x-rise::before { height: 40px; background: radial-gradient(var(--pc) 4.6px, transparent 5.1px) 0 0 / 12px 12px;
+        -webkit-mask-image: linear-gradient(to bottom, #000 30%, transparent); mask-image: linear-gradient(to bottom, #000 30%, transparent); }
+      .x-rise::after { height: 84px; background: radial-gradient(var(--pc) 2.2px, transparent 2.7px) 6px 6px / 12px 12px;
+        -webkit-mask-image: linear-gradient(to bottom, #000 20%, transparent); mask-image: linear-gradient(to bottom, #000 20%, transparent); }
+      /* answering player's side: blue under the asker's descending yellow */
+      .x-under { position: absolute; inset: 0; background: var(--blue); opacity: 0; }
+      .x-p1 { color: var(--yellow); } .x-p2 { color: var(--blue); }
+      .x-who { display: inline-block; background: var(--navy); border-radius: 999px; padding: 0 .45em; font-weight: 600; }
+      .x-ans { top: 43%; transform: translateX(-50%); width: auto; min-width: min(80vw, 360px); color: var(--blue); background: var(--navy); border: 3px solid var(--blue); border-radius: 18px; box-shadow: 4px 5px 0 var(--blue); padding: 12px 24px 6px; }
+      .x-ans small { display: block; font-family: var(--score); font-size: 12px; letter-spacing: .22em; text-transform: uppercase; }
+      .x-ans p { font-family: var(--head); font-size: min(15vw, 12svh); line-height: 1.05; min-height: 1.05em; }
+      .x-ans i { font-style: normal; display: inline-block; width: .06em; height: .8em; background: currentColor; vertical-align: -.05em; margin-left: .04em; }
+      .x-ans p { text-transform: uppercase; }
+      .x-score { z-index: 3; }
+      #cap-v { z-index: 3; }
+      /* verdict: the in-game CORRECT screen. Navy over the game's red, split at the burst's centre, halftone on both */
+      /* exact 50/50 split: navy top half, red bottom half, seam at 50% of the viewport; the burst is centred on the seam */
+      .x-vd { --bh: min(50vw, 22svh, 280px); position: absolute; inset: 0; z-index: 2; overflow: hidden; opacity: 0; visibility: hidden; }
+      .x-vd::before, .x-vd::after { content: ""; position: absolute; left: 0; right: 0; z-index: -1; pointer-events: none; }
+      .x-vd::before { top: 0; height: 50%; background: radial-gradient(rgba(59,134,255,.2) 1.6px, transparent 2px) 0 0 / 12px 12px, #0B1636; }
+      .x-vd::after { top: 50%; bottom: 0; background: radial-gradient(rgba(0,0,0,.2) 2.2px, transparent 2.7px) 0 0 / 12px 12px, #B71C1C; }
+      .x-burstwrap { position: absolute; left: 50%; top: 50%; width: min(92vw, 520px); height: var(--bh); transform: translate(-50%, -50%); }
+      /* everything below the burst lives in the red half, ending clear above the caption (bottom set by script) */
+      .x-vd__in { position: absolute; left: 50%; transform: translateX(-50%); top: calc(50% + var(--bh) / 2 + 10px); bottom: 130px; width: min(88vw, 480px);
+        display: flex; flex-direction: column; justify-content: safe center; align-items: stretch; gap: min(10px, 1.4svh); }
+      .x-burst { position: absolute; inset: 0; display: grid; place-items: center; transform-origin: 50% 50%; will-change: transform; }
+      .x-burst svg { position: absolute; top: 0; left: 50%; height: 100%; width: auto; aspect-ratio: 440 / 300; transform: translateX(-50%); overflow: visible; }
+      .x-correct { position: relative; font-family: var(--head); font-size: calc(var(--bh) * .62); line-height: 1; letter-spacing: .01em; color: #3BE36B; white-space: nowrap; padding-top: .08em;
+        -webkit-text-stroke: .045em #000; paint-order: stroke fill; text-shadow: .045em .06em 0 #000; }
+      .x-vtag { align-self: flex-start; font-family: var(--head); font-size: 28px; line-height: 1; letter-spacing: .03em; color: #B71C1C; background: var(--cream); padding: 7px 30px 4px 14px;
+        clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 50%, calc(100% - 16px) 100%, 0 100%); }
+      .x-bubble { position: relative; background: #fff; color: #111; border-radius: 18px; padding: 10px 16px 12px; box-shadow: 5px 6px 0 #000; margin-bottom: 10px; }
+      .x-bubble::after { content: ""; position: absolute; left: 34px; bottom: -14px; width: 22px; height: 16px; background: #fff; clip-path: polygon(0 0, 100% 0, 10% 100%); }
+      .x-bubble small { display: block; font-family: var(--head); font-size: 15px; letter-spacing: .14em; color: #5a6072; }
+      .x-bubble p { font-weight: 700; font-size: 17px; line-height: 1.3; }
+      .x-said { display: flex; align-items: baseline; gap: 14px; color: #fff; font-weight: 700; font-size: 17px; }
+      .x-said small { font-family: var(--head); font-weight: 400; font-size: 16px; letter-spacing: .14em; color: rgba(255,255,255,.88); }
+      .x-receipts { display: flex; align-items: center; gap: 10px; background: #fff; color: #111; border: 2px solid #000; border-radius: 14px; padding: 10px 16px; box-shadow: 5px 6px 0 #000; opacity: 0; }
+      .x-receipts svg { width: 20px; height: 20px; flex: 0 0 auto; }
+      .x-receipts span { font-family: var(--head); font-size: 24px; line-height: 1; letter-spacing: .05em; padding-top: 3px; }
+      .x-receipts small { margin-left: auto; font-weight: 700; font-size: 14px; color: #4a5370; white-space: nowrap; }
+      @media (max-width: 600px) { .x-vtag { font-size: 24px; } .x-bubble p, .x-said { font-size: 15px; } }
+      /* phones: a compact red-half stack so the whole verdict fits one screen (390×720) */
+      @media (max-width: 600px), (max-height: 760px) {
+        .x-vtag { font-size: 20px; padding: 5px 26px 3px 12px; }
+        .x-bubble { padding: 7px 14px 8px; border-radius: 14px; box-shadow: 4px 5px 0 #000; margin-bottom: 8px; }
+        .x-bubble::after { bottom: -11px; width: 18px; height: 12px; }
+        .x-bubble small { font-size: 12px; }
+        .x-bubble p { font-size: 14px; line-height: 1.25; }
+        .x-said { font-size: 14px; }
+        .x-said small { font-size: 13px; }
+        .x-receipts { padding: 6px 12px; border-radius: 12px; box-shadow: 4px 5px 0 #000; }
+        .x-receipts span { font-size: 18px; }
+        .x-receipts small { font-size: 13px; }
+        #cap-v { bottom: calc(env(safe-area-inset-bottom) + 12px); font-size: 12px; }
+        #cap-v span { max-width: none; padding: 6px 12px; }
+      }
+      .x-endcap { color: var(--cream); }
+      .x-hint { position: absolute; left: 0; right: 0; bottom: calc(env(safe-area-inset-bottom) + 10px); text-align: center; font-family: var(--score); font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: rgba(251,247,238,.75); z-index: 5; }
+      @media (min-width: 820px) { .x-hint { text-align: left; left: max(var(--gut), calc(50% - 540px)); } }
 
-      <!--
-        WAITLIST
-        Paste your Kit form ID between the quotes in KIT_FORM_ID below (the
-        number from your Kit form's embed code, e.g. "1234567").
-        Until it's filled in, sign-ups open an email to hello@trivispar.com
-        instead, so the page works from day one.
-      -->
-      <form id="waitlist" method="post" novalidate>
-        <div class="field">
-          <label for="email" class="sr" style="position:absolute;left:-9999px">Email address</label>
-          <input id="email" name="email_address" type="email" inputmode="email" autocomplete="email" placeholder="you@email.com" required>
+      /* static fallback */
+      .x-static { display: none; padding-top: var(--hh); }
+      .x-beat { padding-block: clamp(44px, 8vw, 80px); color: var(--navy); }
+      .x-beat .x-lead { color: var(--navy); opacity: .82; }
+      .x-beat__in { display: grid; gap: 24px; grid-template-columns: minmax(0,1fr) minmax(0,280px); align-items: center; }
+      @media (max-width: 720px) { .x-beat__in { grid-template-columns: 1fr; } .x-beat__in img { max-width: 280px; } }
+      .x-beat h3 { font-family: var(--head); font-size: clamp(36px, 7vw, 64px); line-height: .95; text-transform: uppercase; margin-bottom: 10px; }
+      .x-beat img { border-radius: 26px; border: 6px solid #05070F; }
+      .x-beat--home { background: radial-gradient(120% 90% at 50% 40%, #1D3F8F, #0B1636 78%); color: var(--cream); }
+      .x-beat--home .x-lead { color: var(--grey); }
+      .x-beat--y { background: #F5C518; } .x-beat--p { background: #7B4DFF; } .x-beat--r { background: linear-gradient(180deg, #3BE36B, #D9342B 55%); }
+
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        .x-ride { height: auto; } .x-stage { display: none; } .x-static { display: block; }
+      }
+
+      /* after the ride */
+      /* one rhythm for every gap after the ride: ~52px on phones, ~88px on desktop */
+      .x-sec { position: relative; padding: clamp(52px, 8vw, 88px) var(--gut) 0; }
+      /* only the leaderboard pins and turns: a short sticky run of under one screen */
+      .x-spin { position: relative; overflow-x: clip; }
+      .x-pricing { overflow-x: clip; }
+      .x-spin__run { height: 85vh; height: 85svh; }
+      /* one continuous fixed backdrop for the whole after-ride stretch; the ride's stage covers it until it scrolls away */
+      .x-bgfix { position: fixed; inset: 0; z-index: 0; pointer-events: none; --b1: rgb(29,63,143); --b2: rgb(11,22,54);
+        background: radial-gradient(120% 90% at 50% 45%, var(--b1), var(--b2) 78%); }
+      main, .x-foot { position: relative; z-index: 1; }
+      .x-spin__stage { position: sticky; top: calc(var(--hh) + 16px); display: flex; justify-content: center; }
+      /* the leaderboard pane: its dot halo behind, the turning glass on top */
+      .x-pane { position: relative; width: min(100%, 580px); display: flex; flex-direction: column; perspective: 1200px; transform-origin: 50% 0; }
+      .x-pane > .x-glass { width: 100%; min-height: 0; flex: 0 1 auto; }
+      .x-pane::before { content: ""; position: absolute; inset: -12% -18%; z-index: -1; pointer-events: none; opacity: calc(.25 + .75 * var(--p, 0));
+        background-image: radial-gradient(rgba(59,134,255,.55) 2px, transparent 2.5px); background-size: 16px 16px;
+        -webkit-mask-image: radial-gradient(closest-side, #000 30%, transparent); mask-image: radial-gradient(closest-side, #000 30%, transparent); }
+      .x-blk .x-h2 { font-size: clamp(38px, 7vw, 68px); margin-top: 6px; }
+      .x-blk .x-lead { margin-top: 10px; }
+      .x-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-top: 22px; }
+      .x-card { border-radius: 18px; padding: 18px; }
+      .x-card h3 { font-family: var(--head); font-size: 30px; text-transform: uppercase; margin-top: 10px; }
+      .x-card p, .x-card li { font-size: 15px; }
+      .x-card ul { margin: 8px 0 0; padding-left: 18px; }
+
+      /* party: a solid gold band, navy comic cards with offset shadows, halftone at the edges */
+      .x-party { position: relative; overflow: hidden; margin-inline: calc(-1 * var(--gut)); padding: clamp(34px, 6vw, 64px) var(--gut); background: var(--yellow); color: var(--navy); }
+      .x-party::before { content: ""; position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(rgba(11,22,54,.28) 2.2px, transparent 2.6px); background-size: 12px 12px;
+        -webkit-mask-image: radial-gradient(circle at 0 0, #000, transparent 34vmin), radial-gradient(circle at 100% 100%, #000, transparent 40vmin);
+        mask-image: radial-gradient(circle at 0 0, #000, transparent 34vmin), radial-gradient(circle at 100% 100%, #000, transparent 40vmin); }
+      .x-party__in { position: relative; max-width: 900px; margin: 0 auto; }
+      .x-party .x-kicker { color: var(--navy); }
+      .x-party .x-h2 .hi { color: var(--yellow); background: var(--navy); padding: 0 .14em; border-radius: .08em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+      .x-party .x-card { background: var(--navy); color: var(--cream); border: 2px solid var(--navy); box-shadow: 6px 7px 0 rgba(11,22,54,.32); }
+      .x-party .x-card p { color: #D5DBF0; }
+
+      /* leaderboard: the frosted glass pane that turns in */
+      .x-glass { position: relative; padding: clamp(20px, 4vw, 34px); border-radius: 24px; color: var(--cream); will-change: transform, opacity;
+        background: linear-gradient(160deg, rgba(255,255,255,.16), rgba(255,255,255,.05));
+        -webkit-backdrop-filter: blur(18px) saturate(1.4); backdrop-filter: blur(18px) saturate(1.4);
+        border: 1px solid rgba(255,255,255,.22); box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 26px 60px rgba(0,0,0,.35); }
+      .x-glass .x-lead { color: #D5DBF0; }
+      .x-lb { list-style: none; margin: 18px 0 0; padding: 0; }
+      .x-lb li { display: grid; grid-template-columns: 28px 1fr auto; align-items: center; gap: 12px; padding: 9px 0; border-top: 1px solid rgba(255,255,255,.14); }
+      .x-lb li:first-child { border-top: 0; }
+      .x-lb__rank { font-family: var(--score); font-size: 15px; color: var(--grey); }
+      .x-lb__name { font-family: var(--head); font-size: 26px; line-height: 1; text-transform: uppercase; }
+      .x-lb__name i { display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: var(--c); margin-right: 10px; vertical-align: .12em; }
+      .x-lb__pts { font-family: var(--score); font-size: 16px; }
+
+      /* pricing: a navy band with pink halftone from the bottom-right, three chunky comic cards in the game's colours */
+      .x-pricing { position: relative; margin-inline: calc(-1 * var(--gut)); padding: clamp(34px, 6vw, 64px) var(--gut) clamp(40px, 7vw, 76px); background: var(--navy); color: var(--cream); border-block: 3px solid #000; }
+      .x-pricing::before { content: ""; position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(#FF4FA3 3px, transparent 3.5px); background-size: 15px 15px;
+        -webkit-mask-image: radial-gradient(130% 120% at 100% 100%, rgba(0,0,0,.9), rgba(0,0,0,.35) 30%, transparent 62%); mask-image: radial-gradient(130% 120% at 100% 100%, rgba(0,0,0,.9), rgba(0,0,0,.35) 30%, transparent 62%); }
+      .x-pricing__in { position: relative; max-width: 960px; margin: 0 auto; }
+      .x-pricing .x-kicker { color: #FF4FA3; }
+      .x-pricing .x-h2 .hi { color: #FF4FA3; }
+      .x-tix { display: grid; gap: 26px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 26px; align-items: start; }
+      .x-tk { position: relative; display: flex; flex-direction: column; background: #fff; color: var(--navy); border: 4px solid var(--navy); border-radius: 18px; box-shadow: 8px 9px 0 #000, 8px 9px 0 3px var(--c); }
+      .x-tk__hd { padding: 16px 18px 14px; background: var(--c); border-radius: 13px 13px 0 0; border-bottom: 4px solid var(--navy); }
+      .x-tk .x-tag { background: var(--navy); color: var(--cream); border: 0; }
+      .x-tk .x-fine { color: var(--navy); font-weight: 700; font-size: 14px; }
+      .x-price { font-family: var(--score); font-size: clamp(42px, 5vw, 56px); line-height: 1; margin-top: 12px; letter-spacing: -.02em; }
+      .x-price span { font-size: max(12px, .34em); letter-spacing: 0; }
+      .x-tk ul { margin: 0; padding: 14px 18px 18px 36px; }
+      .x-tk li { color: #2A3352; font-size: 15px; font-weight: 600; }
+      .x-tk--pro { rotate: 2.5deg; }
+      .x-sticker { position: absolute; top: -30px; right: -24px; width: 86px; height: 86px; display: grid; place-items: center; rotate: 12deg; z-index: 2; }
+      .x-sticker svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+      .x-sticker b { position: relative; font-family: var(--head); font-weight: 400; font-size: 19px; line-height: .9; text-align: center; color: var(--navy); padding-top: 3px; }
+      /* cards pop in one after another (only when motion is allowed; the script adds .x-pop) */
+      @media (prefers-reduced-motion: no-preference) {
+        .x-pop .x-tk { opacity: 0; transform: translateY(40px) scale(.82); transition: opacity .3s ease-out, transform .55s cubic-bezier(.34, 1.56, .64, 1); }
+        .x-pop .x-tk:nth-child(2) { transition-delay: .14s; }
+        .x-pop .x-tk:nth-child(3) { transition-delay: .28s; }
+        .x-pop.is-in .x-tk { opacity: 1; transform: none; }
+      }
+      @media (prefers-reduced-motion: reduce) { .x-spin__stage { position: relative; top: 0; } .x-spin__run { display: none; } }
+      .x-tag { display: inline-block; font-family: var(--score); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; padding: 5px 10px; border-radius: 999px; background: #1F5FD6; color: #fff; }
+      .x-tag--soon { background: transparent; color: var(--grey); border: 1px solid rgba(169,179,214,.4); }
+      .x-tag--y { background: var(--yellow); color: var(--navy); }
+      .x-cta { text-align: center; padding-block: clamp(52px, 8vw, 88px) clamp(64px, 10vw, 110px); background: radial-gradient(80% 70% at 50% 100%, rgba(59,134,255,.28), transparent 70%); }
+      .x-cta .x-stores { justify-content: center; }
+      .x-foot { border-top: 1px solid rgba(169,179,214,.2); padding-block: 28px 56px; }
+      .x-foot__in { display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: center; justify-content: space-between; }
+      .x-foot__links { display: flex; flex-wrap: wrap; gap: 4px 10px; }
+      .x-foot__links a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 6px; font-size: 14px; color: var(--grey); text-decoration: none; }
+      .x-foot__soc { display: flex; align-items: center; gap: 4px; color: var(--grey); font-size: 13px; }
+      .x-mock { position: fixed; left: 10px; top: calc(var(--hh) + 8px); z-index: 70; font-family: var(--score); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--grey); background: var(--navy); border: 1px solid rgba(169,179,214,.3); border-radius: 999px; padding: 4px 10px; pointer-events: none; }
+      @media (max-width: 1100px) { .x-mock { display: none; } }
+
+      /* phones: every glass card fits below the header at full face */
+      @media (max-width: 600px) {
+        .x-glass { padding: 18px 16px; border-radius: 18px; }
+        .x-party, .x-pricing { padding-block: 30px 34px; }
+        .x-blk .x-h2 { font-size: 36px; margin-top: 4px; }
+        .x-blk .x-lead { font-size: 14px; margin-top: 6px; }
+        .x-blk .x-kicker { font-size: 12px; }
+        .x-party .x-grid { gap: 14px; }
+        .x-grid { gap: 10px; margin-top: 14px; }
+        .x-card { padding: 12px 14px; border-radius: 14px; }
+        .x-card h3 { font-size: 22px; margin-top: 6px; }
+        .x-card p, .x-card li { font-size: 14px; line-height: 1.4; }
+        .x-tag { font-size: 12px; padding: 3px 8px; letter-spacing: .1em; }
+        .x-lb { margin-top: 12px; }
+        .x-lb li { padding: 6px 0; gap: 10px; grid-template-columns: 22px 1fr auto; }
+        .x-lb__name { font-size: 22px; }
+        .x-tix { grid-template-columns: 1fr; gap: 18px; margin-top: 16px; padding-right: 6px; }
+        .x-tk { flex-direction: row; border-width: 3px; border-radius: 14px; box-shadow: 5px 6px 0 #000, 5px 6px 0 2px var(--c); }
+        .x-tk__hd { flex: 0 0 136px; padding: 10px 10px 10px 12px; border-radius: 11px 0 0 11px; border-bottom: 0; border-right: 3px solid var(--navy); }
+        .x-tk .x-fine { font-size: 12px; line-height: 1.3; margin-top: 2px; }
+        .x-price { font-size: 27px; margin-top: 6px; }
+        .x-tk ul { align-self: center; padding: 8px 10px 8px 28px; }
+        .x-tk li { font-size: 13px; line-height: 1.35; }
+        .x-tk--pro { rotate: 1.8deg; }
+        .x-sticker { top: -22px; right: -12px; width: 64px; height: 64px; }
+        .x-sticker b { font-size: 14px; }
+      }
+      @media (max-height: 640px) and (max-width: 600px) {
+        .x-blk .x-h2 { font-size: 30px; }
+        .x-card p, .x-card li { font-size: 13px; }
+        .x-blk .x-lead { font-size: 13px; }
+      }
+
+      /* in the Claude app the page runs under the status bar: the fixed header clears it */
+      .x-head { padding-top: env(safe-area-inset-top, 0px); }
+
+      /* party: the crew builder. Slide from 2 to 20; Host mode seats the host at the table, Take turns passes the question round */
+      .x-plead { margin-top: 10px; max-width: 46ch; font-size: clamp(15px, 1.6vw, 18px); color: var(--navy); opacity: .85; }
+      .x-crew { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(18px, 4vw, 44px); align-items: center; margin-top: 22px; }
+      .x-crew__ctl { display: grid; gap: 16px; min-width: 0; }
+      .x-size { display: grid; grid-template-columns: auto 1fr; align-items: end; gap: 4px 12px; }
+      .x-size label { font-family: var(--score); font-size: 12px; letter-spacing: .2em; text-transform: uppercase; }
+      .x-size output { justify-self: end; font-family: var(--score); font-size: clamp(34px, 4vw, 44px); line-height: 1; font-variant-numeric: tabular-nums; }
+      .x-size input { grid-column: 1 / -1; width: 100%; height: 34px; margin: 0; background: transparent; -webkit-appearance: none; appearance: none; cursor: pointer; }
+      .x-size input::-webkit-slider-runnable-track { height: 10px; border-radius: 999px; background: linear-gradient(to right, var(--navy) var(--fill, 33%), rgba(11,22,54,.22) var(--fill, 33%)); }
+      .x-size input::-moz-range-track { height: 10px; border-radius: 999px; background: rgba(11,22,54,.22); }
+      .x-size input::-moz-range-progress { height: 10px; border-radius: 999px; background: var(--navy); }
+      .x-size input::-webkit-slider-thumb { -webkit-appearance: none; width: 30px; height: 30px; margin-top: -10px; border-radius: 50%; background: var(--cream); border: 3px solid var(--navy); box-shadow: 3px 4px 0 var(--navy); }
+      .x-size input::-moz-range-thumb { width: 24px; height: 24px; border-radius: 50%; background: var(--cream); border: 3px solid var(--navy); box-shadow: 3px 4px 0 var(--navy); }
+      .x-ticks { grid-column: 1 / -1; display: flex; justify-content: space-between; font-family: var(--score); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; opacity: .7; }
+      .x-mode { display: inline-flex; justify-self: start; gap: 4px; padding: 4px; border-radius: 999px; background: var(--navy); box-shadow: 4px 5px 0 rgba(11,22,54,.32); }
+      .x-mode button { border: 0; cursor: pointer; min-height: 44px; padding: 0 16px; border-radius: 999px; background: transparent; color: var(--cream); font-family: var(--score); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
+      .x-mode button[aria-pressed="true"] { background: var(--yellow); color: var(--navy); }
+      .x-mode button:disabled { opacity: .45; cursor: default; }
+      .x-explain { min-height: 196px; }
+      .x-explain h3 { margin-top: 8px; }
+      .x-explain p b { color: var(--cream); }
+      .x-when { margin-top: 10px; font-size: 13px; color: var(--grey) !important; }
+      .x-explain .x-tag--soon { margin-top: 12px; }
+      .x-table { position: relative; width: min(100%, 440px); aspect-ratio: 1; max-width: 100%; justify-self: center; }
+      .x-table__top { position: absolute; inset: 25%; border-radius: 50%; background: var(--navy); box-shadow: 6px 7px 0 rgba(11,22,54,.32); display: grid; place-items: center; overflow: hidden; }
+      .x-table__top::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(59,134,255,.45) 1.6px, transparent 2px); background-size: 11px 11px;
+        -webkit-mask-image: radial-gradient(circle, transparent 35%, #000 100%); mask-image: radial-gradient(circle, transparent 35%, #000 100%); }
+      .x-table__label { position: relative; font-family: var(--head); font-size: clamp(22px, 3.4vw, 36px); line-height: .9; text-transform: uppercase; color: var(--cream); text-align: center; padding: 0 12%; }
+      .x-rays { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+      .x-rays line { stroke: var(--navy); stroke-width: .55; stroke-dasharray: 1.4 1.6; opacity: .5; animation: x-flow 1.1s linear infinite; }
+      @keyframes x-flow { to { stroke-dashoffset: -6; } }
+      .x-seat { --s: clamp(32px, 7.4vw, 46px); position: absolute; left: 50%; top: 50%; z-index: 2;
+        transform: translate(-50%, -50%) translate(var(--x, 0px), var(--y, 0px)) scale(var(--k, 1)); transition: transform .55s cubic-bezier(.34, 1.56, .64, 1), opacity .25s ease; }
+      .x-seat i { display: grid; place-items: center; width: var(--s); height: var(--s); border-radius: 50%; background: var(--c); color: var(--navy); border: 3px solid var(--navy);
+        box-shadow: 3px 4px 0 var(--navy); font-style: normal; font-family: var(--head); font-size: calc(var(--s) * .52); line-height: 1; padding-top: .1em; }
+      .x-seat b { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); margin-top: 6px; font-family: var(--score); font-weight: 400; font-size: 12px; letter-spacing: .04em; text-transform: uppercase; white-space: nowrap; }
+      .x-table.is-crowd .x-seat b { display: none; }
+      .x-seat.is-out { --k: 0; opacity: 0; }
+      .x-seat.is-ask { --k: 1.14; z-index: 3; }
+      .x-seat.is-ask i { box-shadow: 0 0 0 4px var(--cream), 0 0 0 7px var(--navy); }
+      .x-ask { position: absolute; left: 50%; top: 50%; z-index: 4; pointer-events: none;
+        transform: translate(-50%, -100%) translate(var(--x, 0px), calc(var(--y, 0px) - 34px)); transition: transform .55s cubic-bezier(.34, 1.56, .64, 1);
+        background: var(--cream); color: var(--navy); border: 3px solid var(--navy); border-radius: 12px; box-shadow: 3px 4px 0 var(--navy);
+        font-family: var(--head); font-size: 24px; line-height: 1; padding: 5px 11px 1px; }
+      .x-ask::after { content: ""; position: absolute; left: 50%; bottom: -10px; width: 14px; height: 10px; margin-left: -7px; background: var(--navy); clip-path: polygon(0 0, 100% 0, 50% 100%); }
+      @media (max-width: 760px) {
+        .x-crew { grid-template-columns: minmax(0, 1fr); margin-top: 14px; }
+        .x-table { width: min(100%, 330px); order: -1; }
+      }
+      @media (max-width: 600px) {
+        .x-plead { font-size: 14px; margin-top: 6px; }
+        .x-explain { min-height: 0; }
+        .x-mode button { padding: 0 12px; font-size: 12px; }
+      }
+      @media (prefers-reduced-motion: reduce) { .x-seat, .x-ask { transition: none; } .x-rays line { animation: none; } }
+
+      .x-store--soon { background: transparent; color: var(--cream); border-color: var(--cream); box-shadow: none; cursor: default; }
+      .x-sr { position: absolute; left: -9999px; }
+      .x-wl__lede { max-width: 40ch; margin: 10px auto 18px; color: var(--grey); }
+      .x-wl { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; max-width: 480px; margin: 0 auto; }
+      .x-wl input { flex: 1 1 230px; min-height: 52px; padding: 0 18px; border-radius: 999px; border: 2px solid var(--cream); background: rgba(251,247,238,.08); color: var(--cream); font: inherit; font-size: 16px; }
+      .x-wl input::placeholder { color: var(--grey); }
+      .x-wl button { min-height: 52px; padding: 0 24px; border-radius: 999px; border: 2px solid var(--navy); background: var(--yellow); color: var(--navy); font-family: var(--score); font-size: 14px; letter-spacing: .06em; text-transform: uppercase; cursor: pointer; box-shadow: 3px 4px 0 rgba(0,0,0,.35); }
+      .x-wl button:active { transform: translate(2px, 2px); box-shadow: 1px 2px 0 rgba(0,0,0,.35); }
+      .x-wl__fine { margin: 12px 0 0; font-size: 14px; color: var(--grey); }
+      .x-wl__thanks { display: none; max-width: 420px; margin: 0 auto; padding: 16px 20px; border-radius: 16px; background: var(--cream); color: var(--navy); }
+      .x-wl__thanks b { display: block; font-family: var(--head); font-size: 28px; line-height: 1; margin-bottom: 4px; }
+      body.joined .x-wl, body.joined .x-wl__fine { display: none; }
+      body.joined .x-wl__thanks { display: block; }
+      .x-wl__beta { margin-top: 22px; font-size: 14px; color: var(--grey); }
+      .x-wl__beta a { color: var(--cream); }
+    </style>
+  </head>
+  <body>
+    <header class="x-head">
+      <div class="x-wrap x-head__in">
+        <a class="x-brand" href="#top"><img src="j/TriviSpar-wordmark-4000.png" alt="TriviSpar" width="4000" height="1036" /></a>
+        <nav class="x-nav" aria-label="Main">
+          <a class="x-navlink" href="#party">Party</a>
+          <a class="x-navlink" href="#brag">Leaderboard</a>
+          <a class="x-navlink" href="#pricing">Pricing</a>
+          <a class="x-soc" href="https://instagram.com/trivispar" target="_blank" rel="noopener" aria-label="TriviSpar on Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.05 1.8.25 2.2.42.6.22 1 .48 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2Zm0 3.3A6.5 6.5 0 1 0 18.5 12 6.5 6.5 0 0 0 12 5.5Zm0 10.7A4.2 4.2 0 1 1 16.2 12 4.2 4.2 0 0 1 12 16.2Zm6.8-10.9a1.5 1.5 0 1 1-1.5-1.5 1.5 1.5 0 0 1 1.5 1.5Z"/></svg></a>
+          <a class="x-soc" href="https://x.com/TriviSpar" target="_blank" rel="noopener" aria-label="TriviSpar on X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.5 3h3l-6.6 7.5L21.8 21h-5.9l-4.3-5.6L6.5 21H3.4l7-8-6.9-10h6l3.9 5.2ZM16.4 19.2h1.6L7.7 4.7H6L16.4 19.2Z"/></svg></a>
+        </nav>
+      </div>
+    </header>
+
+    <div class="x-bgfix" id="bgfix" aria-hidden="true"></div>
+    <main id="top">
+      <div class="x-ride" id="ride">
+        <div class="x-stage" id="stage" aria-label="One TriviSpar round, played as you scroll">
+          <div class="x-fade" id="fade">
+            <div class="x-field"></div>
+            <div class="x-dots" id="dots"></div>
+            <div class="x-dots2" id="dots2"></div>
+          </div>
+
+          <div class="x-cam">
+            <div class="x-phone" id="phone">
+              <div class="x-phone__in"><div class="x-screen">
+                <img src="j/home-nowm.png" alt="TriviSpar home screen: two spars waiting on you" />
+                <img id="s-threw" src="j/threw.png" alt="Marcus threw you one: the incoming question screen" />
+                <div class="x-engarde" id="engarde" role="img" aria-label="TriviSpar"></div>
+                <div class="x-target" id="target"></div>
+              </div></div>
+            </div>
+          </div>
+
+          <div class="x-layer" id="l-home" style="opacity:1">
+            <div class="x-homecopy">
+              <h1 class="x-h1">Trivia night with<br />your favorite people.</h1>
+              <div class="x-stores">
+                <span class="x-store x-store--soon">Coming soon</span>
+                <a class="x-store x-store--alt" href="#download">Get on the list</a>
+              </div>
+            </div>
+            <p class="x-hint" id="hint">Scroll to play a round ↓</p>
+          </div>
+
+          <div class="x-layer" id="l-throw"><p class="x-cap"><span>Your friend threw you one.</span></p></div>
+
+          <div class="x-layer" id="l-play">
+            <div class="x-under" id="under" aria-hidden="true"></div>
+            <div class="x-rise" id="rise" style="--pc:#F5C518" aria-hidden="true"></div>
+            <p class="x-c x-score" id="score"><span class="x-p2">YOU</span> 2 · <span class="x-p1">MARCUS</span> 2</p>
+            <p class="x-c x-q" id="q"><span>Which</span> <span>planet</span> <span>spins</span> <span>the</span> <span>opposite</span> <span>way</span> <span>to</span> <span>all</span> <span>the</span> <span>others?</span></p>
+            <div class="x-c x-ring" id="ring" aria-hidden="true">
+              <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="rgba(11,22,54,.2)" stroke-width="6" /><circle id="ringfill" cx="50" cy="50" r="42" fill="none" stroke="#0B1636" stroke-width="6" stroke-linecap="round" stroke-dasharray="264" stroke-dashoffset="264" /></svg>
+              <b id="ringnum">20</b>
+            </div>
+            <div class="x-c x-ans" id="ans"><small>Your answer</small><p><span id="typed"></span><i></i></p></div>
+            <div class="x-vd" id="vd">
+                <div class="x-burstwrap">
+                  <div class="x-burst" id="burst">
+                    <svg viewBox="0 0 440 300" aria-hidden="true">
+                      <defs>
+                        <linearGradient id="bsplit" x1="0" y1="0" x2="0" y2="1"><stop offset=".5" stop-color="#1B2552" /><stop offset=".5" stop-color="#7A1212" /></linearGradient>
+                        <pattern id="bdots" width="9" height="9" patternUnits="userSpaceOnUse"><circle cx="4.5" cy="4.5" r="1.7" fill="rgba(255,255,255,.22)" /></pattern>
+                      </defs>
+                      <g fill="#fff">
+                        <polygon points="18,58 92,96 86,104" /><polygon points="40,20 120,74 112,80" /><polygon points="426,50 352,96 358,104" />
+                        <polygon points="402,14 330,72 338,78" /><polygon points="8,232 80,206 82,214" /><polygon points="432,240 360,208 356,216" />
+                        <polygon points="70,292 128,240 134,246" /><polygon points="380,292 318,238 312,244" />
+                      </g>
+                      <polygon transform="translate(7 7)" fill="#000" points="220,25 237,65 273,24 270,73 321,41 303,83 351,71 329,101 377,100 343,124 392,132 341,149 402,168 351,176 379,200 324,196 363,235 310,222 321,259 273,230 276,281 237,232 220,285 202,235 170,266 169,226 122,254 130,221 86,230 109,199 47,204 97,174 34,168 98,150 48,132 100,125 46,95 111,102 83,68 133,81 120,42 167,70 165,21 200,58" />
+                      <polygon fill="url(#bsplit)" stroke="#000" stroke-width="4" stroke-linejoin="miter" points="220,25 237,65 273,24 270,73 321,41 303,83 351,71 329,101 377,100 343,124 392,132 341,149 402,168 351,176 379,200 324,196 363,235 310,222 321,259 273,230 276,281 237,232 220,285 202,235 170,266 169,226 122,254 130,221 86,230 109,199 47,204 97,174 34,168 98,150 48,132 100,125 46,95 111,102 83,68 133,81 120,42 167,70 165,21 200,58" />
+                      <polygon fill="url(#bdots)" points="220,25 237,65 273,24 270,73 321,41 303,83 351,71 329,101 377,100 343,124 392,132 341,149 402,168 351,176 379,200 324,196 363,235 310,222 321,259 273,230 276,281 237,232 220,285 202,235 170,266 169,226 122,254 130,221 86,230 109,199 47,204 97,174 34,168 98,150 48,132 100,125 46,95 111,102 83,68 133,81 120,42 167,70 165,21 200,58" />
+                    </svg>
+                    <p class="x-correct">Correct</p>
+                  </div>
+                </div>
+              <div class="x-vd__in" id="vd-in">
+                <p class="x-vtag" id="vtag">Marcus scores</p>
+                <div class="x-bubble" id="bubble"><small>Referee</small><p>Right. The answer is Venus.</p></div>
+                <p class="x-said" id="said"><small>They said</small>venus</p>
+                <div class="x-receipts" id="receipts"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="#111" stroke-width="2" stroke-linejoin="round" d="M5 3h14v18l-2.3-1.6L14.3 21 12 19.4 9.7 21l-2.4-1.6L5 21z M8.5 8h7 M8.5 12h7 M8.5 16h4" /></svg><span>Show the receipts</span><small>2 sources</small></div>
+              </div>
+            </div>
+            <p class="x-cap" id="cap-q"><span>Word by word. 20 seconds once the last word lands.</span></p>
+            <p class="x-cap" id="cap-v"><span>The AI referee rules, with receipts. Think it's wrong? Appeal.</span></p>
+          </div>
         </div>
-        <button type="submit">Get in first</button>
-      </form>
-      <p class="fine">One email when it launches. No spam, unsubscribe anytime.</p>
-      <div class="thanks" role="status"><b>You're on the list</b>We'll email you the day TriviSpar opens. Check your inbox to confirm.</div>
-    </section>
 
-    <section class="stage" aria-label="A look at the app">
-      <svg class="burst" viewBox="0 0 520 260" aria-hidden="true">
-        <defs><pattern id="d" width="8" height="8" patternUnits="userSpaceOnUse"><circle cx="4" cy="4" r="1.7" fill="#5B8CFF" opacity=".55"/></pattern></defs>
-        <polygon fill="#1C3478" stroke="#000" stroke-width="3" points="257,20 283,57 326,22 322,57 379,32 356,72 444,51 388,87 487,81 414,108 480,119 417,132 482,142 424,152 478,175 393,173 427,201 366,185 383,226 331,203 325,237 280,211 265,246 235,213 192,236 191,197 130,230 157,191 85,210 120,172 49,173 101,151 28,146 86,128 22,114 98,110 34,78 130,87 77,54 150,72 134,40 184,56 189,24 234,47"/>
-        <polygon fill="url(#d)" points="257,20 283,57 326,22 322,57 379,32 356,72 444,51 388,87 487,81 414,108 480,119 417,132 482,142 424,152 478,175 393,173 427,201 366,185 383,226 331,203 325,237 280,211 265,246 235,213 192,236 191,197 130,230 157,191 85,210 120,172 49,173 101,151 28,146 86,128 22,114 98,110 34,78 130,87 77,54 150,72 134,40 184,56 189,24 234,47"/>
-      </svg>
-      <div class="phone p1"><img src="img/home.webp" alt="TriviSpar home screen with games waiting on you" loading="lazy"></div>
-      <div class="phone p2"><img src="img/verdict.webp" alt="A verdict screen: CORRECT, with the referee's ruling"></div>
-      <div class="phone p3"><img src="img/threw.webp" alt="Marcus threw you one" loading="lazy"></div>
-    </section>
-  </main>
+        <!-- static version for reduced motion -->
+        <div class="x-static">
+          <div class="x-beat x-beat--home"><div class="x-wrap x-beat__in">
+            <div><h1 class="x-h1">Trivia night with your favorite people.</h1><div class="x-stores"><span class="x-store x-store--soon">Coming soon</span><a class="x-store x-store--alt" href="#download">Get on the list</a></div></div>
+          </div></div>
+          <div class="x-beat x-beat--y"><div class="x-wrap"><h3>Your friend threw you one.</h3><p class="x-lead">Two spars waiting on you. <span class="x-who x-p1">Marcus</span> is up 3–2 and just sent a question.</p></div></div>
+          <div class="x-beat x-beat--p"><div class="x-wrap"><h3>Which planet spins the opposite way to all the others?</h3><p class="x-lead">Word by word. 20 seconds once the last word lands.</p></div></div>
+          <div class="x-beat x-beat--r"><div class="x-wrap"><h3><span class="x-who x-p2">“venus”</span> — Correct.</h3><p class="x-lead">Referee: Right. The answer is Venus. Show the receipts · 2 sources. <span class="x-who"><span class="x-p2">YOU</span> 3 · <span class="x-p1">MARCUS</span> 2</span>. The AI referee rules, with receipts. Think it's wrong? Appeal.</p></div></div>
+        </div>
+      </div>
 
-  <footer>
-    <span>© 2026 TriviSpar</span>
-    <span class="flinks"><a href="/support/">Support</a> <a href="/privacy/">Privacy</a> <a href="/terms/">Terms</a> <a href="mailto:hello@trivispar.com">hello@trivispar.com</a></span>
-  </footer>
-</div>
+      <section class="x-sec" id="party">
+          <div class="x-party x-blk"><div class="x-party__in">
+            <p class="x-kicker">Party mode</p>
+            <h2 class="x-h2">Bring the<br /><span class="hi">group chat.</span></h2>
+            <p class="x-plead">Two of you is a spar. Three to twenty is a party, played on your own time, from anywhere.</p>
+            <div class="x-crew">
+              <div class="x-crew__ctl">
+                <div class="x-size">
+                  <label for="crew-size">Players</label>
+                  <output id="crew-out" for="crew-size">8</output>
+                  <input id="crew-size" type="range" min="2" max="20" value="8" />
+                  <div class="x-ticks" aria-hidden="true"><span>2 · spar</span><span>20 · party</span></div>
+                </div>
+                <div class="x-mode" role="group" aria-label="Who asks">
+                  <button type="button" id="crew-host" aria-pressed="true">Host mode</button>
+                  <button type="button" id="crew-turns" aria-pressed="false">Take turns</button>
+                </div>
+                <div class="x-card x-explain" id="crew-explain" aria-live="polite"></div>
+              </div>
+              <div class="x-table" id="crew-table" aria-hidden="true">
+                <svg class="x-rays" id="crew-rays" viewBox="-50 -50 100 100" preserveAspectRatio="none"></svg>
+                <div class="x-table__top"><p class="x-table__label" id="crew-label"></p></div>
+                <div class="x-ask" id="crew-ask">?</div>
+              </div>
+            </div>
+          </div></div>
+      </section>
 
-<script>
-  var KIT_FORM_ID = "10008124";   // ← paste your Kit form ID here, e.g. "1234567"
+      <section class="x-sec x-spin" id="brag">
+        <div class="x-spin__stage" id="brag-stage">
+          <div class="x-pane">
+          <div class="x-glass x-blk">
+            <p class="x-kicker">Leaderboard</p>
+            <h2 class="x-h2">Bragging<br /><span class="hb">rights.</span></h2>
+            <p class="x-lead">Lifetime points and public profiles, so a good run follows you around.</p>
+            <ol class="x-lb">
+              <li><span class="x-lb__rank">1</span><span class="x-lb__name"><i style="--c:#3B86FF"></i>Dana</span><span class="x-lb__pts">1,240</span></li>
+              <li><span class="x-lb__rank">2</span><span class="x-lb__name"><i style="--c:#F5C518"></i>Marcus</span><span class="x-lb__pts">1,180</span></li>
+              <li><span class="x-lb__rank">3</span><span class="x-lb__name"><i style="--c:#7B4DFF"></i>Priya</span><span class="x-lb__pts">990</span></li>
+              <li><span class="x-lb__rank">4</span><span class="x-lb__name"><i style="--c:#3BE36B"></i>Chris</span><span class="x-lb__pts">870</span></li>
+              <li><span class="x-lb__rank">5</span><span class="x-lb__name"><i style="--c:#D9342B"></i>Tasha</span><span class="x-lb__pts">760</span></li>
+            </ol>
+            <p class="x-fine" style="margin-top:12px;color:#D5DBF0">Mock standings for this preview.</p>
+          </div>
+          </div>
+        </div>
+        <div class="x-spin__run" aria-hidden="true"></div>
+      </section>
 
-  (function () {
-    var form = document.getElementById("waitlist");
-    var email = document.getElementById("email");
-    if (/[?&]joined=1/.test(location.search)) document.body.classList.add("joined");
+      <section class="x-sec" id="pricing">
+          <div class="x-pricing x-blk"><div class="x-pricing__in">
+            <p class="x-kicker">Pricing</p>
+            <h2 class="x-h2">Play free. <span class="hi">Play more.</span></h2>
+            <div class="x-tix" id="tix">
+            <div class="x-tk" style="--c:#3B86FF"><div class="x-tk__hd"><span class="x-tag">Free</span><p class="x-price">$0</p><p class="x-fine">Forever</p></div><ul><li>5 games every week</li><li>Joining a friend's game is always free</li></ul></div>
+            <div class="x-tk" style="--c:#F5C518"><div class="x-tk__hd"><span class="x-tag">Top-up</span><p class="x-price">$0.99</p><p class="x-fine">Five-game pack</p></div><ul><li>Games never expire</li><li>No subscription needed</li></ul></div>
+            <div class="x-tk x-tk--pro" style="--c:#FF4FA3"><div class="x-sticker" aria-hidden="true"><svg viewBox="0 0 100 100"><polygon fill="#F5C518" stroke="#0B1636" stroke-width="4" stroke-linejoin="round" points="94,50 83,59 89,72 74,74 73,90 58,82 50,93 41,84 28,88 26,74 8,74 17,59 3,50 17,41 10,27 27,27 27,10 41,16 50,4 59,16 73,10 73,27 91,27 83,41" /></svg><b>Best<br />value</b></div><div class="x-tk__hd"><span class="x-tag">Pro</span><p class="x-price">$3.99<span>/mo</span></p><p class="x-fine">or $24.99 a year</p></div><ul><li>Unlimited games</li></ul></div>
+            </div>
+          </div></div>
+      </section>
 
-    if (KIT_FORM_ID) form.action = "https://app.convertkit.com/forms/" + KIT_FORM_ID + "/subscriptions";
+      <section class="x-cta" id="download">
+        <div class="x-wrap">
+          <h2 class="x-h2">Your move.</h2>
+          <p class="x-wl__lede">Coming soon to iPhone and Android. Get on the list and we'll tell you the day it opens.</p>
+          <form id="waitlist" class="x-wl" method="post" novalidate>
+            <label for="email" class="x-sr">Email address</label>
+            <input id="email" name="email_address" type="email" inputmode="email" autocomplete="email" placeholder="you@email.com" required />
+            <button type="submit">Get in first</button>
+          </form>
+          <p class="x-wl__fine">One email when it launches. No spam, unsubscribe anytime.</p>
+          <div class="x-wl__thanks" role="status"><b>You're on the list</b>We'll email you the day TriviSpar opens. Check your inbox to confirm.</div>
+          <p class="x-wl__beta">On iPhone and can't wait? <a href="https://testflight.apple.com/join/WHsrFGSm" target="_blank" rel="noopener">Try the beta on TestFlight</a></p>
+        </div>
+      </section>
+    </main>
 
-    form.addEventListener("submit", function (e) {
-      var v = (email.value || "").trim();
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
-        e.preventDefault();
-        email.focus();
-        email.setCustomValidity("Enter a valid email address");
-        email.reportValidity();
-        return;
-      }
-      email.setCustomValidity("");
-      if (!KIT_FORM_ID) {
-        e.preventDefault();
-        location.href = "mailto:hello@trivispar.com?subject=" +
-          encodeURIComponent("Add me to the TriviSpar list") +
-          "&body=" + encodeURIComponent("Please add " + v + " to the launch list.");
-      }
-      // with a Kit form ID, the form posts to Kit, and Kit sends people
-      // back to https://trivispar.com/?joined=1 (set in the Kit form settings)
-    });
-    email.addEventListener("input", function () { email.setCustomValidity(""); });
-  })();
-</script>
-<script data-goatcounter="https://trivispar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-</body>
+    <footer class="x-foot">
+      <div class="x-wrap x-foot__in">
+        <p class="x-fine">© 2026 TriviSpar</p>
+        <nav class="x-foot__links" aria-label="Footer">
+          <a href="/support/">Support</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="mailto:hello@trivispar.com">hello@trivispar.com</a>
+        </nav>
+        <div class="x-foot__soc">
+          <a class="x-soc" href="https://instagram.com/trivispar" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.05 1.8.25 2.2.42.6.22 1 .48 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2Zm0 3.3A6.5 6.5 0 1 0 18.5 12 6.5 6.5 0 0 0 12 5.5Zm0 10.7A4.2 4.2 0 1 1 16.2 12 4.2 4.2 0 0 1 12 16.2Zm6.8-10.9a1.5 1.5 0 1 1-1.5-1.5 1.5 1.5 0 0 1 1.5 1.5Z"/></svg></a>
+          <a class="x-soc" href="https://x.com/TriviSpar" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.5 3h3l-6.6 7.5L21.8 21h-5.9l-4.3-5.6L6.5 21H3.4l7-8-6.9-10h6l3.9 5.2ZM16.4 19.2h1.6L7.7 4.7H6L16.4 19.2Z"/></svg></a>
+          <span>TikTok — coming soon</span>
+        </div>
+      </div>
+    </footer>
+
+
+    <script src="j/hark.js"></script>
+    <script>
+      /* pricing cards pop in one after another as they arrive */
+      (function () {
+        var tix = document.getElementById("tix");
+        if (!tix || !("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        tix.classList.add("x-pop");
+        var io = new IntersectionObserver(function (es) {
+          es.forEach(function (e) { if (e.isIntersecting) { tix.classList.add("is-in"); io.disconnect(); } });
+        }, { threshold: 0.2 });
+        io.observe(tix);
+      })();
+    </script>
+    <script>
+      (function () {
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        function $(id) { return document.getElementById(id); }
+        var ride = $("ride"), stage = $("stage"), phone = $("phone"), threw = $("s-threw"),
+          target = $("target"), lHome = $("l-home"), lThrow = $("l-throw"), lPlay = $("l-play"), hint = $("hint"),
+          score = $("score"), q = $("q"), words = [].slice.call(q.children), ring = $("ring"), ringfill = $("ringfill"),
+          ringnum = $("ringnum"), ans = $("ans"), typed = $("typed"), receipts = $("receipts"),
+          vd = $("vd"), vdIn = $("vd-in"), burst = $("burst"), vtag = $("vtag"), bubble = $("bubble"), said = $("said"),
+          capQ = $("cap-q"), capV = $("cap-v"), rise = $("rise"), under = $("under"), bgfix = $("bgfix"), fade = $("fade"),
+          brag = $("brag"), bst = $("brag-stage"), engarde = $("engarde"), bpane = bst.querySelector(".x-pane"), bcard = bst.querySelector(".x-glass");
+
+        /* colour stops: [progress, inner, outer, dot rgba] — fields always interpolate */
+        var STOPS = [
+          [0.00, [42, 92, 196], [11, 22, 54], [59, 134, 255, 0.45]],
+          [0.13, [59, 134, 255], [11, 22, 54], [59, 134, 255, 0.5]],
+          [0.27, [255, 216, 77], [245, 197, 24], [11, 22, 54, 0.3]],
+          [0.31, [255, 216, 77], [245, 197, 24], [11, 22, 54, 0.3]],
+          [0.37, [150, 116, 255], [123, 77, 255], [11, 22, 54, 0.32]],
+          [0.555, [150, 116, 255], [123, 77, 255], [11, 22, 54, 0.32]],
+          [0.59, [120, 240, 152], [59, 227, 107], [11, 22, 54, 0.28]],
+          [0.64, [120, 240, 152], [59, 227, 107], [11, 22, 54, 0.28]],
+          [0.69, [236, 88, 78], [217, 52, 43], [11, 22, 54, 0.32]],
+          [0.77, [236, 88, 78], [217, 52, 43], [11, 22, 54, 0.32]],
+          [0.92, [29, 63, 143], [11, 22, 54], [59, 134, 255, 0.45]],
+          [1.00, [29, 63, 143], [11, 22, 54], [59, 134, 255, 0.45]]
+        ];
+        var ANSWER = "venus";
+
+        function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
+        function seg(p, a, b) { return clamp((p - a) / (b - a), 0, 1); }
+        function ease(t) { return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+        function out(t) { return 1 - Math.pow(1 - t, 3); }
+        function mixA(a, b, t) { return a.map(function (v, i) { return v + (b[i] - v) * t; }); }
+        function rgb(c) { return "rgb(" + Math.round(c[0]) + "," + Math.round(c[1]) + "," + Math.round(c[2]) + ")"; }
+        function rgba(c) { return "rgba(" + Math.round(c[0]) + "," + Math.round(c[1]) + "," + Math.round(c[2]) + "," + c[3].toFixed(3) + ")"; }
+
+        function colours(p) {
+          for (var i = 0; i < STOPS.length - 1; i++) {
+            var a = STOPS[i], b = STOPS[i + 1];
+            if (p <= b[0]) {
+              var t = ease(seg(p, a[0], b[0]));
+              stage.style.setProperty("--c1", rgb(mixA(a[1], b[1], t)));
+              stage.style.setProperty("--c2", rgb(mixA(a[2], b[2], t)));
+              stage.style.setProperty("--dot", rgba(mixA(a[3], b[3], t)));
+              return;
+            }
+          }
+        }
+
+        var raf = false;
+        function frame() {
+          raf = false;
+          var vw = window.innerWidth, vh = stage.clientHeight || window.innerHeight;
+          var rect = ride.getBoundingClientRect();
+          var p = clamp(-rect.top / Math.max(1, ride.offsetHeight - vh), 0, 1);
+          var wide = vw >= 820;
+          var W = phone.offsetWidth, H = phone.offsetHeight;
+
+          colours(p);
+
+          /* camera ------------------------------------------------------- */
+          var hs = wide ? 1 : 0.6;
+          var hx = wide ? Math.min(vw * 0.22, 300) : 0;
+          var hy = 30;
+          if (!wide) {
+            /* hero state: fit the phone between the store buttons and the scroll hint */
+            var hc = lHome.querySelector(".x-homecopy");
+            var top0 = hc.offsetTop + hc.offsetHeight + 16;
+            var bot0 = hint.offsetTop - 14;
+            hs = clamp((bot0 - top0) / H, 0.3, 0.6);
+            var pTop = top0 + Math.max(0, (bot0 - top0 - hs * H) / 2);
+            hy = pTop + (hs * H) / 2 - vh / 2;
+          }
+          var sF = Math.max(vw / (W * 0.94), vh / (H * 0.94)) * 1.08;
+          var s, fy, Fx, Fy, op;
+          if (p < 0.5) {
+            var t = ease(seg(p, 0.14, 0.29));
+            s = hs * Math.pow(sF / hs, t);
+            fy = (0.58 + (0.28 - 0.58) * ease(seg(t, 0.55, 1)) - 0.5) * H; /* Your-turn row, then the question card */
+            Fx = hx * (1 - t);
+            Fy = (hy + hs * fy) * (1 - t);
+            op = 1 - seg(p, 0.285, 0.31);
+            threw.style.opacity = String(seg(p, 0.215, 0.26));
+            target.style.boxShadow = "0 0 0 3px rgba(245,197,24," + (seg(p, 0.12, 0.16) * (1 - seg(p, 0.22, 0.25))).toFixed(2) + ")";
+          } else {
+            var u = ease(seg(p, 0.765, 0.95));
+            var es = wide ? 1 : 0.82;
+            s = sF * Math.pow(es / sF, u);
+            fy = (0.56 - 0.5) * H * (1 - u);
+            Fx = 0;
+            Fy = (wide ? 30 : 24) * u + 0;
+            op = seg(p, 0.775, 0.8); /* the phone stays hidden until the full-bleed verdict has fully faded out */
+            threw.style.opacity = "0";
+          }
+          var tx = Fx - s * (W / 2), ty = Fy - s * (H / 2 + fy);
+          phone.style.transform = "translate3d(" + tx.toFixed(1) + "px," + ty.toFixed(1) + "px,0) scale(" + s.toFixed(4) + ")";
+          phone.style.opacity = op.toFixed(3);
+          phone.style.visibility = op <= 0 ? "hidden" : "visible";
+
+          /* En Garde wordmark: scrubbed 0→64 while the home screen shows, frame 0 everywhere else */
+          var ek = p < 0.26 ? Math.round(seg(p, 0, 0.215) * 64) : 0;
+          engarde.style.backgroundPosition = (ek % 5) * 25 + "% " + (Math.floor(ek / 5) * 100 / 12).toFixed(4) + "%";
+          engarde.style.opacity = String(1 - parseFloat(threw.style.opacity || 0));
+
+          /* home copy ---------------------------------------------------- */
+          var h = seg(p, 0.07, 0.14);
+          lHome.style.opacity = String(1 - h);
+          lHome.style.transform = "translateY(" + (-40 * h).toFixed(1) + "px)";
+          lHome.style.visibility = h >= 1 ? "hidden" : "visible";
+          hint.style.opacity = String(1 - seg(p, 0.01, 0.05));
+
+          /* throw caption ------------------------------------------------ */
+          lThrow.style.opacity = String(seg(p, 0.19, 0.225) * (1 - seg(p, 0.29, 0.315)));
+
+          /* play: question, timer, answer, verdict ------------------------ */
+          var play = seg(p, 0.30, 0.335) * (1 - seg(p, 0.745, 0.775));
+          lPlay.style.opacity = play.toFixed(3);
+          lPlay.style.visibility = play <= 0 ? "hidden" : "visible";
+
+          var n = words.length;
+          words.forEach(function (w, i) {
+            var a = 0.315 + (i * 0.145) / n;
+            var k = out(seg(p, a, a + 0.014));
+            w.style.opacity = k.toFixed(3);
+            w.style.transform = "translateY(" + ((1 - k) * 0.35).toFixed(3) + "em) scale(" + (1.18 - 0.18 * k).toFixed(3) + ")";
+          });
+          var shrink = ease(seg(p, 0.54, 0.575));
+          q.style.transform = "translateX(-50%) scale(" + (1 - 0.45 * shrink).toFixed(3) + ")";
+
+          var tick = seg(p, 0.475, 0.545);
+          ringfill.setAttribute("stroke-dashoffset", (264 * (1 - tick)).toFixed(1));
+          ringnum.textContent = String(Math.ceil(20 - 20 * tick));
+          rise.style.transform = "translateY(" + (-(1 - tick) * (vh + 90)).toFixed(1) + "px)";
+          rise.style.opacity = String(1 - seg(p, 0.55, 0.585));
+          under.style.opacity = String(seg(p, 0.46, 0.48) * (1 - seg(p, 0.55, 0.585)));
+          ring.style.opacity = String(seg(p, 0.32, 0.35) * (1 - seg(p, 0.55, 0.57)));
+          capQ.style.opacity = String(seg(p, 0.33, 0.36) * (1 - seg(p, 0.535, 0.555)));
+
+          ans.style.opacity = String(seg(p, 0.555, 0.57));
+          typed.textContent = ANSWER.slice(0, Math.round(seg(p, 0.565, 0.605) * ANSWER.length));
+
+          /* verdict screen covers the answer box; its stack always ends clear above the caption */
+          var vo = seg(p, 0.605, 0.615);
+          vd.style.opacity = vo.toFixed(3);
+          vd.style.visibility = vo <= 0 ? "hidden" : "visible";
+          var capTop = capV.offsetTop + capV.firstElementChild.offsetTop;
+          vdIn.style.bottom = Math.max(0, vh - capTop + 20).toFixed(0) + "px";
+          /* the burst slams in: 1.4 down past 1, then settles */
+          var bk = seg(p, 0.61, 0.64);
+          var bs = bk < 0.6 ? 1.4 - 0.46 * out(bk / 0.6) : 0.94 + 0.06 * ease((bk - 0.6) / 0.4);
+          burst.style.transform = "scale(" + bs.toFixed(3) + ")";
+          burst.style.opacity = seg(p, 0.61, 0.616).toFixed(3);
+          var tg = out(seg(p, 0.632, 0.648));
+          vtag.style.opacity = tg.toFixed(3);
+          vtag.style.transform = "translateX(" + (-30 * (1 - tg)).toFixed(1) + "px)";
+          var bb = out(seg(p, 0.642, 0.66));
+          bubble.style.opacity = bb.toFixed(3);
+          bubble.style.transform = "translateY(" + (24 * (1 - bb)).toFixed(1) + "px)";
+          said.style.opacity = seg(p, 0.65, 0.665).toFixed(3);
+
+          var rc = out(seg(p, 0.655, 0.685));
+          receipts.style.opacity = rc.toFixed(3);
+          receipts.style.transform = "translateY(" + (30 * (1 - rc)).toFixed(1) + "px)";
+          score.innerHTML = '<span class="x-p2">YOU</span> ' + (p >= 0.69 ? 3 : 2) + ' · <span class="x-p1">MARCUS</span> 2';
+          capV.style.opacity = String(seg(p, 0.64, 0.67));
+
+          /* the ride's backdrop dissolves from the bottom up as the pullback ends: a long soft blend, no edge */
+          var f = ease(seg(p, 0.9, 1));
+          var m = f > 0 ? "linear-gradient(to bottom, #000 " + (100 - 75 * f).toFixed(1) + "%, transparent 100%)" : "none";
+          fade.style.webkitMaskImage = m; fade.style.maskImage = m;
+          stage.style.overflow = p > 0.95 ? "visible" : "hidden"; /* the settled phone's shadow is never cut off at the stage's edge */
+
+          /* leaderboard only: turns in as it arrives, pinned for under one screen, then scrolls on */
+          var br = brag.getBoundingClientRect();
+          if (br.bottom > -vh && br.top < vh * 2) {
+            var top0 = 60 + 16, avail = window.innerHeight - top0 - 16;
+            var sc = Math.min(1, avail / Math.max(1, bpane.offsetHeight));
+            bpane.style.transform = "scale(" + sc.toFixed(3) + ")";
+            var stick = Math.max(top0, top0 + (avail - bpane.offsetHeight * sc) / 2);
+            bst.style.top = stick.toFixed(0) + "px";
+            var run = brag.lastElementChild.offsetHeight;
+            var sTop = br.top + parseFloat(getComputedStyle(brag).paddingTop);
+            var k = clamp((window.innerHeight * 0.9 - sTop) / Math.max(1, window.innerHeight * 0.9 - stick + run * 0.55), 0, 1), a = ease(k);
+            bcard.style.transform = "rotateY(" + (75 * (1 - a)).toFixed(2) + "deg)";
+            bcard.style.opacity = (0.15 + 0.85 * a).toFixed(3);
+            bst.style.setProperty("--p", k.toFixed(3));
+          }
+
+          /* fixed backdrop: navy drifting slowly to deep indigo from the ride's end to the footer */
+          var y0 = ride.offsetTop + ride.offsetHeight - vh, y1 = document.documentElement.scrollHeight - window.innerHeight;
+          var g = seg(window.scrollY, y0, Math.max(y0 + 1, y1));
+          bgfix.style.setProperty("--b1", rgb(mixA([29, 63, 143], [72, 50, 168], g)));
+          bgfix.style.setProperty("--b2", rgb(mixA([11, 22, 54], [24, 16, 72], g)));
+        }
+
+        function onScroll() { if (!raf) { raf = true; requestAnimationFrame(frame); } }
+        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("resize", onScroll);
+        window.addEventListener("load", frame);
+        frame();
+      })();
+    </script>
+    <script>
+      /* party: the crew builder. Slide the crew from 2 to 20; Host mode seats you at the table
+         with the room around it, Take turns passes the question round the table */
+      (function () {
+        var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var table = document.getElementById("crew-table"), rays = document.getElementById("crew-rays"), ask = document.getElementById("crew-ask");
+        var label = document.getElementById("crew-label"), size = document.getElementById("crew-size"), out = document.getElementById("crew-out");
+        var bHost = document.getElementById("crew-host"), bTurns = document.getElementById("crew-turns"), explain = document.getElementById("crew-explain");
+        var CREW = [["You", "#3B86FF"], ["Marcus", "#F5C518"], ["Dana", "#FF5A4F"], ["Chris", "#9B7BFF"], ["Priya", "#FB923C"], ["Tasha", "#3BE36B"],
+          ["Lou", "#22D3EE"], ["Maya", "#FF4FA3"], ["Rob", "#A3E635"], ["June", "#3B86FF"], ["Omar", "#F5C518"], ["Ben", "#9B7BFF"], ["Kendra", "#FB923C"],
+          ["Theo", "#3BE36B"], ["Rosa", "#22D3EE"], ["Malik", "#FF4FA3"], ["Nia", "#A3E635"], ["Devon", "#FF5A4F"], ["Ana", "#3B86FF"], ["Sam", "#F5C518"]];
+        var seats = CREW.map(function (p) {
+          var s = document.createElement("div");
+          s.className = "x-seat is-out";
+          s.style.setProperty("--c", p[1]);
+          s.innerHTML = "<i>" + p[0].charAt(0) + "</i><b>" + p[0] + "</b>";
+          table.appendChild(s);
+          return s;
+        });
+        var mode = "host", turn = 0, timer = 0, inView = false;
+
+        function words(n) { return n === 1 ? "the other one answers" : "the other " + n + " answer"; }
+        function render() {
+          var n = +size.value, party = n >= 3, host = party && mode === "host";
+          var W = table.clientWidth, R = W * 0.4, ring = host ? n - 1 : n, lines = "";
+          out.textContent = n;
+          size.style.setProperty("--fill", ((n - 2) / 18 * 100).toFixed(1) + "%");
+          table.classList.toggle("is-crowd", n > 12);
+          bHost.disabled = bTurns.disabled = !party;
+          bHost.setAttribute("aria-pressed", String(party && mode === "host"));
+          bTurns.setAttribute("aria-pressed", String(party && mode === "turns"));
+          seats.forEach(function (s, i) {
+            if (i >= n) { s.classList.add("is-out"); return; }
+            s.classList.remove("is-out");
+            var x = 0, y = 0;
+            if (!party) { x = (i ? 1 : -1) * R; }
+            else if (!(host && i === 0)) {
+              var k = host ? i - 1 : i, a = -Math.PI / 2 + (k / ring) * Math.PI * 2;
+              x = Math.cos(a) * R; y = Math.sin(a) * R;
+              if (host) lines += '<line x1="0" y1="0" x2="' + (x / W * 100).toFixed(1) + '" y2="' + (y / W * 100).toFixed(1) + '" />';
+            }
+            s.style.setProperty("--x", x.toFixed(1) + "px");
+            s.style.setProperty("--y", y.toFixed(1) + "px");
+          });
+          rays.innerHTML = lines;
+          var soon = '<p class="x-when">Everyone gets 12, 24 or 48 hours to answer each question.</p><span class="x-tag x-tag--soon">Coming soon: live party, everyone at once</span>';
+          if (!party) {
+            explain.innerHTML = '<span class="x-tag">Spar</span><h3>One on one</h3><p><b>You</b> and <b>Marcus</b> take turns asking. Slide up to bring more people in, and it becomes a party.</p>';
+          } else if (host) {
+            explain.innerHTML = '<span class="x-tag">Host mode</span><h3>One asks. The room answers.</h3><p><b>You</b> ask every question and ' + words(n - 1) + '. The host runs the show and doesn’t score. Pick 5, 10 or 15 rounds.</p>' + soon;
+          } else {
+            explain.innerHTML = '<span class="x-tag">Take turns</span><h3>Everyone asks.</h3><p>The question goes round the table, so once around is <b>' + n + ' rounds</b>. Stump the room to score, as long as somebody gets it. Once, twice or three times around.</p>' + soon;
+          }
+          point();
+        }
+        function point() {
+          var n = +size.value, party = n >= 3, who = !party ? -1 : mode === "host" ? 0 : turn % n;
+          seats.forEach(function (s, i) { s.classList.toggle("is-ask", i === who); });
+          ask.hidden = who < 0;
+          label.textContent = !party ? "1 v 1" : mode === "host" ? "" : CREW[who][0] + (who === 0 ? " ask" : " asks");
+          if (who >= 0) {
+            ask.style.setProperty("--x", seats[who].style.getPropertyValue("--x") || "0px");
+            ask.style.setProperty("--y", seats[who].style.getPropertyValue("--y") || "0px");
+          }
+        }
+        function run() {
+          clearInterval(timer);
+          if (!reduce && inView && mode === "turns" && +size.value >= 3) timer = setInterval(function () { turn += 1; point(); }, 1400);
+        }
+        size.addEventListener("input", function () { turn = 0; render(); run(); });
+        bHost.addEventListener("click", function () { mode = "host"; render(); run(); });
+        bTurns.addEventListener("click", function () { mode = "turns"; turn = 0; render(); run(); });
+        window.addEventListener("resize", render);
+        if ("IntersectionObserver" in window) {
+          new IntersectionObserver(function (es) { inView = es[0].isIntersecting; run(); }, { threshold: 0.2 }).observe(table);
+        } else { inView = true; }
+        render();
+      })();
+    </script>
+
+    <script>
+      var KIT_FORM_ID = "10008124";
+      (function () {
+        var form = document.getElementById("waitlist"), email = document.getElementById("email");
+        if (/[?&]joined=1/.test(location.search)) { document.body.classList.add("joined"); setTimeout(function () { document.getElementById("download").scrollIntoView(); }, 300); }
+        form.action = "https://app.convertkit.com/forms/" + KIT_FORM_ID + "/subscriptions";
+        form.addEventListener("submit", function (e) {
+          var v = (email.value || "").trim();
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) { e.preventDefault(); email.focus(); email.setCustomValidity("Enter a valid email address"); email.reportValidity(); return; }
+          email.setCustomValidity("");
+        });
+        email.addEventListener("input", function () { email.setCustomValidity(""); });
+      })();
+    </script>
+    <script data-goatcounter="https://trivispar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  </body>
 </html>
